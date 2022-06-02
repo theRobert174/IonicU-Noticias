@@ -9,4 +9,12 @@ export class Tab2Page {
 
   constructor() {}
 
+  public categories: string[] = ['business','entertainment','general','health','science','sports','technology'];
+  public selectedCategory: string = this.categories[0];
+
+  segmentChanged(event){
+    console.log(event);
+    
+  }
+
 }
