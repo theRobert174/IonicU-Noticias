@@ -18,7 +18,13 @@ export class NewsService {
   constructor(private http : HttpClient) { }
 
   getTopHeadLines() : Observable<Article[]>{
-    return this.http.get<NewsResponse>(`https://newsapi.org/v2/everything?q=tesla&from=2022-05-02&sortBy=publishedAt`,{
+    return this.http.get<NewsResponse>(`https://newsapi.org/v2/top-headlines?country=us&category=business`,{
+      params: { apiKey }
+    }).pipe( map(({articles}) => articles) );
+  }
+
+  getTopheadLinesByCategory( category: string ): Observable<Article[]> {
+    return this.http.get<NewsResponse>(`https://newsapi.org/v2/top-headlines?country=us&category=${category}`,{
       params: { apiKey }
     }).pipe( map(({articles}) => articles) );
   }
