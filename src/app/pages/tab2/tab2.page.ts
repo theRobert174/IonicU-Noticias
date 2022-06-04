@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { Article } from 'src/app/interfaces';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -10,6 +11,8 @@ import { Article } from 'src/app/interfaces';
 export class Tab2Page implements OnInit{
 
   constructor(private newsService : NewsService) {}
+
+  @ViewChild( IonInfiniteScroll , {static : true} ) infiniteScroll: IonInfiniteScroll;
 
   public categories: string[] = ['business','entertainment','general','health','science','sports','technology'];
   public selectedCategory: string = this.categories[0];
@@ -41,18 +44,20 @@ export class Tab2Page implements OnInit{
     })
   }
 
-  loadData(event: any){
+  loadData(){
     this.newsService.getTopheadLinesByCategory( this.selectedCategory, true).subscribe(articles => {
 
       //Opcion para controlar el infinite scroll pero no es muy recomendata por dar un error falso
       //30 articulos de sport puede ser igual a 30 articulos en health
       if(articles.length === this.articles.length){
-        event.target.disabled = true;
+        this.infiniteScroll.disabled = true;
+        //event.target.disabled = true;
         return;
       }
 
       this.articles = articles;
-      event.target.complete();
+      this.infiniteScroll.complete();
+      //event.target.complete();
     })
   }
 
