@@ -80,7 +80,7 @@ export class NewsService {
 
       if( articles.length === 0 ) return this.articlesByCategoryAndPage[category].articles;// si ya no hay mas articulos de la api, retorna los de memoria
 
-      //Si el api regresa con mas articulos los guarda en una nueva pagina, desetructura los viejos articulos para almacenar los nuevos
+      //Si el api regresa con mas articulos los guarda en una nueva pagina, desetructura los viejos articulos para concatenar almacenar los nuevos
       this.articlesByCategoryAndPage[category] = {
         page: page,
         articles: [ ...this.articlesByCategoryAndPage[category].articles, ...articles]
