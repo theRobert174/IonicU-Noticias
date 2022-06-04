@@ -31,7 +31,8 @@ export class NewsService {
   }
 
   getTopHeadLines() : Observable<Article[]>{
-    return this.excuteQuery<NewsResponse>(`/top-headlines?category=business`).pipe( map(({articles}) => articles) );
+    //return this.excuteQuery<NewsResponse>(`/top-headlines?category=business`).pipe( map(({articles}) => articles) );
+    return this.getArticlesByCategory('business');
   }
 
   getTopheadLinesByCategory( category: string, loadMore: boolean = false ): Observable<Article[]> {
