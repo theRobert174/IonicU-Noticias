@@ -16,20 +16,29 @@ export class Tab2Page implements OnInit{
   public articles: Article[] = [];
 
   ngOnInit() {
-    this.getArticles(this.selectedCategory);
+    //this.getArticles(this.selectedCategory);
+    //debugger;
+    this.newsService.getTopheadLinesByCategory(this.selectedCategory).subscribe(articles => {
+      this.articles = [...articles]
+    })
   }
 
-  getArticles(category: string){
+  /*getArticles(category: string){
+    console.log(category);
+    
     this.newsService.getTopheadLinesByCategory(category).subscribe(articles => {
       this.articles = [...articles];
       console.log(this.articles);
     });
-  }
+  }*/
 
   segmentChanged(event){
     console.log(event);
     this.selectedCategory = event.detail.value;
-    this.getArticles(this.selectedCategory);
+    //this.getArticles(this.selectedCategory);
+    this.newsService.getTopheadLinesByCategory(this.selectedCategory).subscribe(articles => {
+      this.articles = [...articles]
+    })
   }
 
 }
