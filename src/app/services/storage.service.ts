@@ -20,7 +20,14 @@ export class StorageService {
   }
 
   async saveRemoveArticle(article : Article){
-    this._localArticles = [article, ...this._localArticles];
+    const exists = this._localArticles.find( localArticle => localArticle.title === article.title );
+    if( exists ){
+      this._localArticles = this._localArticles.filter( localArticle => localArticle.title !== article.title)
+    }
+    else{
+      this._localArticles = [ article, ...this._localArticles];
+    }
+    
     this._storage.set('articles', this._localArticles);
   }
 }
