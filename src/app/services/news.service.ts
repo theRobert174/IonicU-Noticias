@@ -6,6 +6,7 @@ import { Article, ArticlesByCategoryAndPage, NewsResponse } from '../interfaces'
 
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { storedArticlesByCategory } from '../data/mock-news';
 
 const apiUrl = environment.apiUrl;
 const apiKey = environment.apiKeyNews;
@@ -15,7 +16,7 @@ const apiKey = environment.apiKeyNews;
 })
 export class NewsService {
 
-  private articlesByCategoryAndPage: ArticlesByCategoryAndPage = {};
+  private articlesByCategoryAndPage: ArticlesByCategoryAndPage = storedArticlesByCategory;
 
   constructor(private http : HttpClient) { }
 
@@ -36,6 +37,7 @@ export class NewsService {
   }
 
   getTopheadLinesByCategory( category: string, loadMore: boolean = false ): Observable<Article[]> {
+    return of(this.articlesByCategoryAndPage[category].articles);
     console.log(category);
     console.log(this.articlesByCategoryAndPage[category]);
     
